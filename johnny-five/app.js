@@ -1,10 +1,13 @@
 const five = require("johnny-five");
-const app = require('express')();
+const express = require('express');
+var app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const board = new five.Board();
 
 let led = null;
+
+app.use(express.static(__dirname + '/public'));
 app.get('/', function(req, res) {
 	res.sendFile(__dirname + '/index.html');
 });
