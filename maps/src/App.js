@@ -16,10 +16,23 @@ class App extends Component {
   }
 
   initMap() {
+    const directionsService = new window.google.maps.DirectionsService();
+    const directionsDisplay = new window.google.maps.DirectionsRenderer();
+    let directionsRequest = {
+      origin: 'Avenue Franklin Roosevelt 42, 1050 Bruxelles',
+      destination: 'Gare Centrale, 1000 Bruxelles',
+      travelMode: 'TRANSIT'
+    };
+    directionsService.route(directionsRequest, function(response, status){
+      console.log(response);
+      console.log(status);
+      directionsDisplay.setDirections(response);
+    });
     const map = new window.google.maps.Map(this.refs.map, {
-                  center: {lat: -34.397, lng: 150.644},
+                  center: {lat: 50.8296496, lng: 4.3507953},
                   zoom: 8
                 });
+    directionsDisplay.setMap(map);
   }
 
   render() {
