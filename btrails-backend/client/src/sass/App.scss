@@ -15,7 +15,11 @@ $mobile-max-width: 767px;
 
 
 main {
+<<<<<<< HEAD
 	> .container {
+=======
+	.container {
+>>>>>>> d417b34d98eee5a6ec41f3fc1761e07d63717522
 		margin-top: $navbar-outter-height;
 		margin-bottom: $footer-outter-height;
 	}
@@ -92,6 +96,7 @@ main {
 	}
 }
 
+<<<<<<< HEAD
 .user-actions {
 	
 	&.bottom {
@@ -104,5 +109,7 @@ main {
 	}
 }
 
+=======
+>>>>>>> d417b34d98eee5a6ec41f3fc1761e07d63717522
 
 

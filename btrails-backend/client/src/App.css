@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 main > .container {
+=======
+main .container {
+>>>>>>> d417b34d98eee5a6ec41f3fc1761e07d63717522
   margin-top: 100px;
   margin-bottom: 65px; }
 
@@ -50,6 +54,7 @@ main > .container {
   .footer-quotes span {
     color: #3fbe68; }
 
+<<<<<<< HEAD
 .user-actions .btn-toolbar .btn {
   float: right; }
 
@@ -57,4 +62,6 @@ main > .container {
   position: fixed;
   bottom: 130px; }
 
+=======
+>>>>>>> d417b34d98eee5a6ec41f3fc1761e07d63717522
 /*# sourceMappingURL=maps/App.css.map */

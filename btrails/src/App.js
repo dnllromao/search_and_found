@@ -116,7 +116,7 @@ class Main extends Component {
       console.log(this);
     });*/ 
 
-    fetch('http://localhost:5000/').then( response => {
+    fetch('http://localhost:3001/').then( response => {
       return response.json();
     }).then( data => {;
       //console.log(this);

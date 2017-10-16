@@ -3320,6 +3320,7 @@ he@1.1.x:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/he/-/he-1.1.1.tgz#93410fd21b009735151f8868c2f271f3427e23fd"
 
+<<<<<<< HEAD
 history@^4.7.2:
   version "4.7.2"
   resolved "https://registry.yarnpkg.com/history/-/history-4.7.2.tgz#22b5c7f31633c5b8021c7f4a8a954ac139ee8d5b"
@@ -3330,6 +3331,8 @@ history@^4.7.2:
     value-equal "^0.4.0"
     warning "^3.0.0"
 
+=======
+>>>>>>> d417b34d98eee5a6ec41f3fc1761e07d63717522
 hmac-drbg@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/hmac-drbg/-/hmac-drbg-1.0.1.tgz#d2745701025a6c775a6c545793ed502fc0c649a1"
@@ -3346,10 +3349,13 @@ hoek@4.x.x:
   version "4.2.0"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-4.2.0.tgz#72d9d0754f7fe25ca2d01ad8f8f9a9449a89526d"
 
+<<<<<<< HEAD
 hoist-non-react-statics@^2.3.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.3.1.tgz#343db84c6018c650778898240135a1420ee22ce0"
 
+=======
+>>>>>>> d417b34d98eee5a6ec41f3fc1761e07d63717522
 home-or-tmp@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/home-or-tmp/-/home-or-tmp-2.0.0.tgz#e36c3f2d2cae7d746a857e38d18d5f32a7882db8"
@@ -4554,7 +4560,11 @@ longest@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/longest/-/longest-1.0.1.tgz#30a0b2da38f73770e8294a0d22e6625ed77d0097"
 
+<<<<<<< HEAD
 loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.2.0, loose-envify@^1.3.1:
+=======
+loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.3.1:
+>>>>>>> d417b34d98eee5a6ec41f3fc1761e07d63717522
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/loose-envify/-/loose-envify-1.3.1.tgz#d1a8ad33fa9ce0e713d65fdd0ac8b748d478c848"
   dependencies:
@@ -5300,7 +5310,11 @@ path-to-regexp@0.1.7:
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-0.1.7.tgz#df604178005f522f15eb4490e7247a1bfaa67f8c"
 
+<<<<<<< HEAD
 path-to-regexp@^1.0.1, path-to-regexp@^1.7.0:
+=======
+path-to-regexp@^1.0.1:
+>>>>>>> d417b34d98eee5a6ec41f3fc1761e07d63717522
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-1.7.0.tgz#59fde0f435badacba103a84e9d3bc64e96b9937d"
   dependencies:
@@ -5732,7 +5746,11 @@ prop-types-extra@^1.0.1:
   dependencies:
     warning "^3.0.0"
 
+<<<<<<< HEAD
 prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.6.0:
+=======
+prop-types@^15.5.10, prop-types@^15.6.0:
+>>>>>>> d417b34d98eee5a6ec41f3fc1761e07d63717522
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
   dependencies:
@@ -5835,8 +5853,13 @@ raw-body@2.3.2:
     unpipe "1.0.0"
 
 rc@^1.0.1, rc@^1.1.6, rc@^1.1.7:
+<<<<<<< HEAD
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/rc/-/rc-1.2.2.tgz#d8ce9cb57e8d64d9c7badd9876c7c34cbe3c7077"
+=======
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/rc/-/rc-1.2.1.tgz#2e03e8e42ee450b8cb3dce65be1bf8974e1dfd95"
+>>>>>>> d417b34d98eee5a6ec41f3fc1761e07d63717522
   dependencies:
     deep-extend "~0.4.0"
     ini "~1.3.0"
@@ -5905,8 +5928,13 @@ react-error-overlay@^2.0.2:
     source-map "0.5.6"
 
 react-overlays@^0.7.0:
+<<<<<<< HEAD
   version "0.7.3"
   resolved "https://registry.yarnpkg.com/react-overlays/-/react-overlays-0.7.3.tgz#e4caa690ce7cd7d40b2cf9cdc26356cddaf5a0e9"
+=======
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/react-overlays/-/react-overlays-0.7.2.tgz#03808f80d99dfadd93d67438c619aa55d07b3f80"
+>>>>>>> d417b34d98eee5a6ec41f3fc1761e07d63717522
   dependencies:
     classnames "^2.2.5"
     dom-helpers "^3.2.1"
@@ -5920,6 +5948,7 @@ react-prop-types@^0.4.0:
   dependencies:
     warning "^3.0.0"
 
+<<<<<<< HEAD
 react-router-dom@^4.2.2:
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/react-router-dom/-/react-router-dom-4.2.2.tgz#c8a81df3adc58bba8a76782e946cbd4eae649b8d"
@@ -5943,6 +5972,8 @@ react-router@^4.2.0:
     prop-types "^15.5.4"
     warning "^3.0.0"
 
+=======
+>>>>>>> d417b34d98eee5a6ec41f3fc1761e07d63717522
 react-scripts@1.0.14:
   version "1.0.14"
   resolved "https://registry.yarnpkg.com/react-scripts/-/react-scripts-1.0.14.tgz#70fe76c9beb67b136b953e875bdfe4ad78d410d1"
@@ -6303,10 +6334,13 @@ resolve-from@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/resolve-from/-/resolve-from-1.0.1.tgz#26cbfe935d1aeeeabb29bc3fe5aeb01e93d44226"
 
+<<<<<<< HEAD
 resolve-pathname@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/resolve-pathname/-/resolve-pathname-2.2.0.tgz#7e9ae21ed815fd63ab189adeee64dc831eefa879"
 
+=======
+>>>>>>> d417b34d98eee5a6ec41f3fc1761e07d63717522
 resolve-url@~0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/resolve-url/-/resolve-url-0.2.1.tgz#2c637fe77c893afd2a663fe21aa9080068e2052a"
@@ -6627,7 +6661,11 @@ source-map@0.5.x, source-map@^0.5.0, source-map@^0.5.1, source-map@^0.5.3, sourc
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.5.7.tgz#8a039d2d1021d22d1ea14c80d8ea468ba2ef3fcc"
 
+<<<<<<< HEAD
 source-map@0.X, source-map@^0.6.1, source-map@~0.6.1:
+=======
+source-map@0.X, source-map@^0.6.1:
+>>>>>>> d417b34d98eee5a6ec41f3fc1761e07d63717522
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
 
@@ -7075,11 +7113,19 @@ ua-parser-js@^0.7.9:
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.17.tgz#e9ec5f9498b9ec910e7ae3ac626a805c4d09ecac"
 
 uglify-js@3.1.x, uglify-js@^3.0.13:
+<<<<<<< HEAD
   version "3.1.4"
   resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.1.4.tgz#8e1efa1244b207588e525c9c1835a33458b90aee"
   dependencies:
     commander "~2.11.0"
     source-map "~0.6.1"
+=======
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.1.3.tgz#d61f0453b4718cab01581f3162aa90bab7520b42"
+  dependencies:
+    commander "~2.11.0"
+    source-map "~0.5.1"
+>>>>>>> d417b34d98eee5a6ec41f3fc1761e07d63717522
 
 uglify-js@^2.6, uglify-js@^2.8.29:
   version "2.8.29"
@@ -7252,10 +7298,13 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "~1.0.0"
     spdx-expression-parse "~1.0.0"
 
+<<<<<<< HEAD
 value-equal@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/value-equal/-/value-equal-0.4.0.tgz#c5bdd2f54ee093c04839d71ce2e4758a6890abc7"
 
+=======
+>>>>>>> d417b34d98eee5a6ec41f3fc1761e07d63717522
 vary@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"

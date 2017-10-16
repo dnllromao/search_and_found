@@ -5,6 +5,7 @@ import {
   Route,
   Link
 } from 'react-router-dom'
+
 //import logo from './logo.svg';
 import './App.css';
 
@@ -192,6 +193,7 @@ class Home extends Component {
     return (
       <main>
       <h1>Home</h1>
+
         <Grid>
           {this.state.trails.map( (trail, index) => {
             return (<Thumb trail={trail} key={index}/>);
@@ -206,6 +208,7 @@ class App extends Component {
 
   render() {
     return (
+
       <Router>
         <div className="wrapper">
           <Header />
@@ -215,6 +218,7 @@ class App extends Component {
           <Footer />
         </div>
       </Router>
+
     );
   }
 }
