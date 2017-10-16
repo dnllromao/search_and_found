@@ -17,7 +17,9 @@ class App extends Component {
 
   initMap() {
     const directionsService = new window.google.maps.DirectionsService();
-    const directionsDisplay = new window.google.maps.DirectionsRenderer();
+    const directionsDisplay = new window.google.maps.DirectionsRenderer({
+      draggable: true
+    });
     let directionsRequest = {
       origin: 'Avenue Franklin Roosevelt 42, 1050 Bruxelles',
       destination: 'Gare Centrale, 1000 Bruxelles',
