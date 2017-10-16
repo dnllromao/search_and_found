@@ -18,8 +18,9 @@ app.get('/', function(req, res) {
 		if(err) throw err;
 		res.json(trails);
 	});
+	//res.json('des bonnes reéponses');
 });
 
-app.listen(5000, function() {
-	console.log('listening on port 5000');
+app.listen(3001, function() {
+	console.log('listening on port 3001');
 })
