@@ -3,15 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "express": "^4.16.2",
+    "http-proxy-middleware": "^0.17.4",
+    "isomorphic-fetch": "^2.2.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.0.14"
+    "react-scripts": "1.0.14",
+    "webpack-node-externals": "^1.6.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "serve": "NODE_ENV=production node ./build/server/bundle.js",
+    "start": "node scripts/start.js",
+    "nodemon": "nodemon --watch build/server build/server/bundle.js build/server/bundle.js",
+    "build-client": "node scripts/build-client.js",
+    "build-server": "node scripts/build-server.js",
+    "build": "npm run build-client && npm run build-server",
+    "test": "node scripts/test.js --env=jsdom"
   }
 }

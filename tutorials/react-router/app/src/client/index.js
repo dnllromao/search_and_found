@@ -11,4 +11,4 @@ ReactDOM.render((
 
 
 // Tutorial : https://medium.com/@pshrmn/a-simple-react-router-v4-tutorial-7f23ff27adf
-// Tutorial universal: https://medium.com/leanjs/universal-create-react-app-step-by-step-b80ba68d125dcd client
+// Tutorial universal: https://medium.com/leanjs/universal-create-react-app-step-by-step-b80ba68d125d
