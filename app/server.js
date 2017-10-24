@@ -49,10 +49,9 @@ app.post('/api', function(req, res) {
 			minutes: 30
 		}
 	})
-	newTrail.save(function(err, newTrail) {
+	/*newTrail.save(function(err, newTrail) {
 		if(err) throw err;
-
-	});
+	});*/
 	res.json('save');
 });
 
