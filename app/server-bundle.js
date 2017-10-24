@@ -85,13 +85,13 @@ module.exports = require("react-router-dom");
 /* 3 */
 /***/ (function(module, exports) {
 
-module.exports = require("mongoose");
+module.exports = require("react-router-bootstrap");
 
 /***/ }),
 /* 4 */
 /***/ (function(module, exports) {
 
-module.exports = require("react-router-bootstrap");
+module.exports = require("mongoose");
 
 /***/ }),
 /* 5 */
@@ -112,7 +112,7 @@ var _bodyParser = __webpack_require__(8);
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
 
-var _mongoose = __webpack_require__(3);
+var _mongoose = __webpack_require__(4);
 
 var _mongoose2 = _interopRequireDefault(_mongoose);
 
@@ -130,7 +130,7 @@ var _App = __webpack_require__(11);
 
 var _App2 = _interopRequireDefault(_App);
 
-var _Trail = __webpack_require__(17);
+var _Trail = __webpack_require__(18);
 
 var _Trail2 = _interopRequireDefault(_Trail);
 
@@ -158,27 +158,18 @@ app.get(/\/(?!api)/, function (req, res) {
 app.get('/api', function (req, res) {
 	_Trail2.default.find({}, function (err, trails) {
 		if (err) throw err;
-		console.log(trails);
 		res.json(trails);
 	});
 });
 
 app.post('/api', function (req, res) {
 	console.log(req.body);
-	var newTrail = new _Trail2.default({
-		title: 'title',
-		description: 'description',
-		city: 'city',
-		distance: 3,
-		duration: {
-			hours: 1,
-			minutes: 30
-		}
+	var newTrail = new _Trail2.default(req.body);
+
+	newTrail.save(function (err, newTrail) {
+		if (err) throw err;
+		res.json(true);
 	});
-	/*newTrail.save(function(err, newTrail) {
- 	if(err) throw err;
- });*/
-	res.json('save');
 });
 
 app.listen(3000, function () {
@@ -321,7 +312,7 @@ var _reactBootstrap = __webpack_require__(1);
 
 var _reactRouterDom = __webpack_require__(2);
 
-var _reactRouterBootstrap = __webpack_require__(4);
+var _reactRouterBootstrap = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -717,9 +708,9 @@ var _reactBootstrap = __webpack_require__(1);
 
 var _reactRouterDom = __webpack_require__(2);
 
-var _reactRouterBootstrap = __webpack_require__(4);
+var _reactRouterBootstrap = __webpack_require__(3);
 
-var _UserNew = __webpack_require__(18);
+var _UserNew = __webpack_require__(17);
 
 var _UserNew2 = _interopRequireDefault(_UserNew);
 
@@ -821,34 +812,6 @@ exports.default = User;
 "use strict";
 
 
-var _mongoose = __webpack_require__(3);
-
-var _mongoose2 = _interopRequireDefault(_mongoose);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var trailSchema = _mongoose2.default.Schema({
-	title: String,
-	description: String,
-	city: String,
-	distance: Number,
-	duration: {
-		hours: Number,
-		minutes: Number
-	}
-});
-
-var Trail = _mongoose2.default.model('Trail', trailSchema);
-
-module.exports = Trail;
-
-/***/ }),
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -865,7 +828,7 @@ var _reactBootstrap = __webpack_require__(1);
 
 var _reactRouterDom = __webpack_require__(2);
 
-var _reactRouterBootstrap = __webpack_require__(4);
+var _reactRouterBootstrap = __webpack_require__(3);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -875,28 +838,22 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var FormBlock = function FormBlock(props) {
+var FormBlock = function FormBlock(_ref) {
+  var field = _ref.field,
+      control = _ref.control,
+      children = _ref.children;
+
 
   var ucFirst = function ucFirst(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
 
-  var validation = function validation() {
-    if (props.value === 'warning' || props.value === 'error') {
-      return props.value;
-    } else {
-      return null;
-    }
-  };
-
   var msg = function msg() {
 
-    if (props.value === 'warning') {
-      console.log('warning');
+    if (control === 'warning') {
       return 'Don\'t forget to fill this field.';
-    } else if (props.value === 'error') {
-      console.log('error');
-      return 'This is not a valid ' + props.field + '.';
+    } else if (control === 'error') {
+      return 'This is not a valid ' + field + '.';
     }
 
     return null;
@@ -904,16 +861,16 @@ var FormBlock = function FormBlock(props) {
 
   return _react2.default.createElement(
     _reactBootstrap.FormGroup,
-    { controlId: props.field, validationState: validation() },
+    { controlId: field, validationState: control },
     _react2.default.createElement(
       _reactBootstrap.Col,
       { componentClass: _reactBootstrap.ControlLabel, sm: 2 },
-      ucFirst(props.field)
+      ucFirst(field)
     ),
     _react2.default.createElement(
       _reactBootstrap.Col,
       { sm: 10 },
-      props.children,
+      children,
       _react2.default.createElement(_reactBootstrap.FormControl.Feedback, null),
       _react2.default.createElement(
         _reactBootstrap.HelpBlock,
@@ -958,7 +915,7 @@ var UserNew = function (_Component) {
     key: 'inputValidation',
     value: function inputValidation(value, name, subname) {
 
-      var result = void 0;
+      var error = void 0;
 
       switch (name) {
         case 'title':
@@ -968,155 +925,89 @@ var UserNew = function (_Component) {
           var regex = /(<([^>]+)>)/ig;
           // regex origin: https://css-tricks.com/snippets/javascript/strip-html-tags-in-javascript/
 
-          if (value) {
-
-            if (value.match(regex)) {
-              result = 'error';
-            } else {
-              result = 'ok';
-            }
-          } else {
-            result = 'warning';
-          }
+          error = value ? value.match(regex) ? 'error' : null : 'warning';
 
           break;
-
         case 'distance':
 
           value = +value;
-
-          if (value && value > 0) {
-            result = 'ok';
-          } else {
-            result = 'warning';
-          }
+          error = value && value > 0 ? null : 'warning';
 
           break;
-
         case 'duration':
 
-          //value = +value;
-          console.log('value');
-          console.dir(value);
+          value = +value;
 
-          if (value) {
-            console.log('oui value');
-            // pourquoi ???
-          }
-
-          if (value && value >= 0) {
-            console.log('value >= 0');
+          if (value != 'undefined' && value >= 0) {
             var opposite = subname === 'hours' ? this.state.data.duration.minutes : this.state.data.duration.hours;
-            /*      		console.log('opposite');
-                  		console.log(opposite);
-                  		console.log((value + opposite) > 0);*/
-            if (value + opposite > 0) {
-              result = 'ok';
-            } else {
-              result = 'warning';
-            }
+            error = value + opposite > 0 ? null : 'warning';
           } else {
-            console.log('value < 0');
-            result = 'warning';
+            error = 'warning';
           }
+
           break;
       }
-      console.log('result-input-validation');console.log(result);
-      return result;
+
+      return error;
     }
   }, {
     key: '_handleSubmit',
     value: function _handleSubmit(e) {
-      var _this2 = this;
-
       e.preventDefault();
 
-      //let that  = this;
-      /*    console.dir(this.state);
-          console.log(this.state.control);;*/
+      var data = Object.assign({}, this.state.data);
+      var control = Object.assign({}, this.state.control);
+      var submit = true;
 
-      var allGood = function allGood() {
-        var data = Object.assign({}, _this2.state.data);
-        var control = Object.assign({}, _this2.state.control);
-        var good = true;
-        //console.log(data);
+      // validation of state.data 
+      for (var name in data) {
 
-        for (var key in data) {
+        var error = void 0;
 
-          var result = void 0;
-          if (_typeof(data[key]) === 'object') {
+        if (_typeof(data[name]) === 'object') {
 
-            for (var ind in data[key]) {
-              /*console.log(ind);*/
-              //result = this.inputValidation(data[key][ind], key, ind );
-              result = _this2.inputValidation(data[key][ind], key, 'minutes');
-              console.log('result');
-              console.log(result);
-              /*if(result === 'ok') {
-              	result = null;
-              }else {
-              	good = false;
-              }
-              control[key] = result;*/
-            }
-          } else {
+          for (var subname in data[name]) {
 
-            result = _this2.inputValidation(data[key], key, null);
+            error = this.inputValidation(data[name][subname], name, subname);
           }
+        } else {
 
-          //console.log('result of ' + key + ' = ' + result);
-          if (result === 'ok') {
-            result = null;
-          } else {
-            good = false;
-          }
-          control[key] = result;
+          error = this.inputValidation(data[name], name, null);
         }
-        /*console.log('control outside for');
-        console.log(control);*/
-        _this2.setState({ control: control }, function () {
-          /*console.log(this.state.control);
-          console.log(this.state.data);*/
-        });
 
-        return good;
-      };
-
-      /*     console.log(allGood());
-            console.log('allGood');
-      console.log(this.state.data);*/
-      if (!allGood()) {
-        return;
+        submit = error != null ? false : submit;
+        control[name] = error;
       }
-      /*
-           console.log('afterallGood');
-           console.log(this.state.data);*/
 
-      /*    fetch('http://localhost:3000/api', {
-              method: 'post',
-              headers: new Headers({
-                "Content-Type": "application/json"
-              }),
-              body: JSON.stringify({ name: 'coucou'})
-            })
-            .then(function(response) {
-              console.log(response);
-              if(response.ok) {
-                return response.blob();
-              }
-              throw new Error('Network response was not ok.');
-            })
-            .then(function(data) {
-              console.log(data);
-            })
-            .catch(function(error) {
-              console.log('There has been a problem with your fetch operation: ' + error.message);
-            });*/
+      // update state.control
+      this.setState({ control: control });
+
+      if (submit) {
+        console.log('there is no errors');
+        console.log(this.state.data);
+
+        fetch('http://localhost:3000/api', {
+          method: 'post',
+          headers: new Headers({ "Content-Type": "application/json" }),
+          body: JSON.stringify(this.state.data)
+        }).then(function (response) {
+          console.log('response from the server');
+          console.log(response);
+          // try to iunderstand this bolb type, and what kind of data passing and receiving (http communications)
+          //return response.blob();
+          return response.json();
+        }).then(function (data) {
+          console.log(data);
+        }).catch(function (error) {
+          console.log('error from the server');
+          console.log(error);
+          if (err) throw err;
+        });
+      }
     }
   }, {
     key: '_handleInputChange',
     value: function _handleInputChange(e) {
-      console.log('handle change');
 
       var fieldName = e.target.name.split('_');;
       var fieldValue = e.target.value;
@@ -1124,34 +1015,33 @@ var UserNew = function (_Component) {
       var name = fieldName[0];
       var subname = fieldName[1] || null;
 
-      var result = this.inputValidation(fieldValue, name, subname);
+      // validation of input value 
+      var error = this.inputValidation(fieldValue, name, subname);
 
-      if (result === 'ok') {
+      // update of state.data
+      if (error === null) {
+
         var data = Object.assign({}, this.state.data);
-        if (subname) {
 
+        if (subname) {
           data[name][subname] = fieldValue;
         } else {
-
           data[name] = fieldValue;
         }
-        this.setState({ data: data }, function () {});
 
-        result = null;
+        this.setState({ data: data });
       }
 
+      // validation of state.control
       var control = Object.assign({}, this.state.control);
-      control[name] = result;
+      control[name] = error;
 
-      this.setState({ control: control }, function () {
-        /*console.log(this.state.control);
-        console.log(this.state.data);*/
-      });
+      this.setState({ control: control });
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
+      var _this2 = this;
 
       return _react2.default.createElement(
         'div',
@@ -1167,35 +1057,35 @@ var UserNew = function (_Component) {
           _react2.default.createElement(
             FormBlock,
             { field: 'title',
-              value: this.state.control.title },
+              control: this.state.control.title },
             _react2.default.createElement(_reactBootstrap.FormControl, { type: 'text',
               name: 'title',
               inputRef: function inputRef(ref) {
-                return _this3._title = ref;
+                return _this2._title = ref;
               },
               onBlur: this._handleInputChange.bind(this) })
           ),
           _react2.default.createElement(
             FormBlock,
             { field: 'description',
-              value: this.state.control.description },
+              control: this.state.control.description },
             _react2.default.createElement(_reactBootstrap.FormControl, { componentClass: 'textarea',
               name: 'description',
               inputRef: function inputRef(ref) {
-                return _this3._description = ref;
+                return _this2._description = ref;
               },
               onBlur: this._handleInputChange.bind(this) })
           ),
           _react2.default.createElement(
             FormBlock,
             { field: 'city',
-              value: this.state.control.city },
+              control: this.state.control.city },
             _react2.default.createElement(
               _reactBootstrap.FormControl,
               { componentClass: 'select',
                 name: 'city',
                 inputRef: function inputRef(ref) {
-                  return _this3._city = ref;
+                  return _this2._city = ref;
                 },
                 onBlur: this._handleInputChange.bind(this) },
               _react2.default.createElement(
@@ -1213,15 +1103,15 @@ var UserNew = function (_Component) {
           _react2.default.createElement(
             FormBlock,
             { field: 'distance',
-              value: this.state.control.distance },
+              control: this.state.control.distance },
             _react2.default.createElement(
               _reactBootstrap.InputGroup,
               null,
               _react2.default.createElement('input', { type: 'number', step: '0', min: '0',
                 id: 'distance', name: 'distance', className: 'form-control',
                 defaultValue: this.state.data.duration.minutes,
-                ref: function ref(_ref) {
-                  return _this3._distance = _ref;
+                ref: function ref(_ref2) {
+                  return _this2._distance = _ref2;
                 },
                 onBlur: this._handleInputChange.bind(this) }),
               _react2.default.createElement(
@@ -1234,7 +1124,7 @@ var UserNew = function (_Component) {
           _react2.default.createElement(
             FormBlock,
             { field: 'duration',
-              value: this.state.control.duration },
+              control: this.state.control.duration },
             _react2.default.createElement(
               _reactBootstrap.Row,
               null,
@@ -1247,8 +1137,8 @@ var UserNew = function (_Component) {
                   _react2.default.createElement('input', { type: 'number', step: '1', min: '0',
                     id: 'duration-hours', name: 'duration_hours', className: 'form-control',
                     defaultValue: this.state.data.duration.minutes,
-                    ref: function ref(_ref2) {
-                      return _this3._duration_hours = _ref2;
+                    ref: function ref(_ref3) {
+                      return _this2._duration_hours = _ref3;
                     },
                     onBlur: this._handleInputChange.bind(this) }),
                   _react2.default.createElement(
@@ -1267,8 +1157,8 @@ var UserNew = function (_Component) {
                   _react2.default.createElement('input', { type: 'number', step: '1', min: '0', max: '59',
                     id: 'duration-minutes', name: 'duration_minutes', className: 'form-control',
                     defaultValue: this.state.data.duration.minutes,
-                    ref: function ref(_ref3) {
-                      return _this3._duration_minutes = _ref3;
+                    ref: function ref(_ref4) {
+                      return _this2._duration_minutes = _ref4;
                     },
                     onBlur: this._handleInputChange.bind(this) }),
                   _react2.default.createElement(
@@ -1302,6 +1192,43 @@ var UserNew = function (_Component) {
 }(_react.Component);
 
 exports.default = UserNew;
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _mongoose = __webpack_require__(4);
+
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var trailSchema = _mongoose2.default.Schema({
+	title: {
+		type: String,
+		required: true,
+		trim: true
+		//match: new RegExp(/(<([^>]+)>)/, "i")
+	},
+	description: String,
+	city: String,
+	distance: {
+		type: Number,
+		required: true,
+		min: 0
+	},
+	duration: {
+		hours: Number,
+		minutes: Number
+	}
+});
+
+var Trail = _mongoose2.default.model('Trail', trailSchema);
+
+module.exports = Trail;
 
 /***/ })
 /******/ ]);

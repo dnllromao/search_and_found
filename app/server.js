@@ -32,27 +32,19 @@ app.get(/\/(?!api)/, function(req, res) {
 app.get('/api', function(req, res) {
 	Trail.find({}, function(err, trails) {
 		if(err) throw err;
-		console.log(trails);
 		res.json(trails);
 	});
 });
 
 app.post('/api', function(req, res) {
 	console.log(req.body);
-	let newTrail = new Trail({
-		title: 'title',
-		description: 'description',
-		city: 'city',
-		distance: 3,
-		duration: {
-			hours: 1,
-			minutes: 30
-		}
-	})
-	/*newTrail.save(function(err, newTrail) {
+	let newTrail = new Trail(req.body);
+
+	newTrail.save(function(err, newTrail) {
 		if(err) throw err;
-	});*/
-	res.json('save');
+		res.json(true);
+	});
+
 });
 
 

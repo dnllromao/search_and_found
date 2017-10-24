@@ -3,28 +3,18 @@ import { Grid, Row, ButtonToolbar, Button, Glyphicon, Col, FormGroup, ControlLab
 import { Switch, Route, Link } from 'react-router-dom';
 import { LinkContainer } from 'react-router-bootstrap';
 
-const FormBlock = (props) => {
+const FormBlock = ({field, control, children}) => {
 
   const ucFirst = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  const validation = () => {
-    if(props.value === 'warning' || props.value === 'error') {
-      return props.value;
-    } else {
-      return null
-    }
-  }
-
   const msg = () => {
     
-    if(props.value === 'warning') {
-      console.log('warning');
+    if(control === 'warning') {
       return 'Don\'t forget to fill this field.';
-    } else if(props.value === 'error') {
-      console.log('error');
-      return 'This is not a valid ' + props.field + '.';
+    } else if(control === 'error') {
+      return 'This is not a valid ' + field + '.';
     }
 
     return null;
@@ -32,12 +22,12 @@ const FormBlock = (props) => {
 
 
   return(
-    <FormGroup controlId={props.field} validationState={validation()}>
+    <FormGroup controlId={field} validationState={control}>
       <Col componentClass={ControlLabel} sm={2}>
-        {ucFirst(props.field)}
+        {ucFirst(field)}
       </Col>
       <Col sm={10}>
-        {props.children}
+        {children}
         <FormControl.Feedback />
         <HelpBlock>{ msg() }</HelpBlock>
       </Col>
@@ -74,7 +64,7 @@ class UserNew extends Component {
 
   inputValidation(value, name, subname) {
 
-    let result;
+    let error;
 
     switch(name) {
       case 'title':
@@ -83,159 +73,96 @@ class UserNew extends Component {
 
         const regex = /(<([^>]+)>)/ig;
         // regex origin: https://css-tricks.com/snippets/javascript/strip-html-tags-in-javascript/
+        
+        error = (value)? ((value.match(regex))? 'error': null) : 'warning';
 
-        if(value) {
-
-          if(value.match(regex)) {
-            result = 'error';
-          } else {
-            result = 'ok';
-          }
-
-        } else {
-          result = 'warning';
-        }
-
-        break;
-
+      break;
       case 'distance':
 
         value = +value;
+        error = (value && value > 0)? null: 'warning';
 
-        if(value && value > 0 ) {
-            result = 'ok';
-        } else {
-            result = 'warning';
-        }
+      break;
+      case 'duration':
 
-        break;
+        value = +value;
 
-        case 'duration':
+      	if( value != 'undefined' && value >= 0 ) {
+      		let opposite = (subname === 'hours')? this.state.data.duration.minutes: this.state.data.duration.hours;
+          error = ((value + opposite) > 0 )? null: 'warning';
 
-        	//value = +value;
-        	console.log('value');
-        	console.dir(value);
+      	} else {
+      	  error = 'warning';
+      	}
 
-        	if(value) {
-        		console.log('oui value');
-        		// pourquoi ???
-        	}
-
-        	if( value && value >= 0 ) {
-        		console.log('value >= 0');
-        		let opposite = (subname === 'hours')? this.state.data.duration.minutes: this.state.data.duration.hours;
-  /*      		console.log('opposite');
-        		console.log(opposite);
-        		console.log((value + opposite) > 0);*/
-        		if((value + opposite) > 0 ) {
-        			result = 'ok';
-        		} else {
-        			result = 'warning';
-        		}
-        	} else {
-        		console.log('value < 0');
-        	    result = 'warning';
-        	}
-        break;
+      break;
     }
-    console.log('result-input-validation'); console.log(result);
-    return result;
+
+    return error;
 
   }
 
   _handleSubmit(e) {
     e.preventDefault();
 
-    //let that  = this;
-/*    console.dir(this.state);
-    console.log(this.state.control);;*/
+  	const data = Object.assign({},this.state.data);
+  	const control = Object.assign({},this.state.control);
+  	let submit = true;
 
-    let allGood = () => {
-    	const data = Object.assign({},this.state.data);
-    	const control = Object.assign({},this.state.control);
-    	let good = true;
-    	//console.log(data);
+    // validation of state.data 
+  	for( let name in data ) {
 
-    	for( let key in data ) {
+  		let error;
 
-    		let result;
-    		if(typeof(data[key]) === 'object') {
+  		if(typeof(data[name]) === 'object') {
 
-    			for( let ind in data[key] ) {
-    				/*console.log(ind);*/
-    				//result = this.inputValidation(data[key][ind], key, ind );
-    				result = this.inputValidation(data[key][ind], key, 'minutes' );
-    				console.log('result');
-    				console.log(result);
-		    		/*if(result === 'ok') {
-		    			result = null;
-		    		}else {
-		    			good = false;
-		    		}
-					control[key] = result;*/
-    			}
+  			for( let subname in data[name] ) {
 
-    		} else {
+  			 error = this.inputValidation(data[name][subname], name, subname );
 
-    			result = this.inputValidation(data[key], key, null );
+  			}
 
-    		}
+  		} else {
 
-    		//console.log('result of ' + key + ' = ' + result);
-    		if(result === 'ok') {
-    			result = null;
-    		}else {
-    			good = false;
-    		}
-			control[key] = result;
+  			error = this.inputValidation(data[name], name, null );
 
-    	}
-    	/*console.log('control outside for');
-    	console.log(control);*/
-    	this.setState({ control: control }, function() {
-    	  /*console.log(this.state.control);
-    	  console.log(this.state.data);*/
-    	});
+  		}
 
-    	return good;
-    }
+      submit  = (error != null)? false: submit;
+		  control[name] = error;
+  	}
 
-   
-/*     console.log(allGood());
-      console.log('allGood');
-console.log(this.state.data);*/
-     if(!allGood()) {
-     	return;
-     }
-/*
-     console.log('afterallGood');
-     console.log(this.state.data);*/
+    // update state.control
+  	this.setState({ control: control });
 
+    if(submit) {
+      console.log('there is no errors');
+      console.log(this.state.data);
 
-/*    fetch('http://localhost:3000/api', {
+      fetch('http://localhost:3000/api', {
         method: 'post',
-        headers: new Headers({
-          "Content-Type": "application/json"
-        }),
-        body: JSON.stringify({ name: 'coucou'})
+        headers: new Headers({ "Content-Type": "application/json" }),
+        body: JSON.stringify(this.state.data)
       })
       .then(function(response) {
+        console.log('response from the server');
         console.log(response);
-        if(response.ok) {
-          return response.blob();
-        }
-        throw new Error('Network response was not ok.');
+        // try to iunderstand this bolb type, and what kind of data passing and receiving (http communications)
+        //return response.blob();
+        return response.json();
       })
       .then(function(data) {
         console.log(data);
-      })
-      .catch(function(error) {
-        console.log('There has been a problem with your fetch operation: ' + error.message);
-      });*/
+      }).catch(function(error) {
+        console.log('error from the server');
+        console.log(error);
+        if(err) throw err;
+      });
+    }
+
   }
 
   _handleInputChange(e) { 
-    console.log('handle change');
 
     let fieldName = e.target.name.split('_');;
     let fieldValue = e.target.value;
@@ -243,33 +170,26 @@ console.log(this.state.data);*/
     let name = fieldName[0];
     let subname = fieldName[1] || null;
 
+    // validation of input value 
+    let error = this.inputValidation(fieldValue, name, subname );
 
-    let result = this.inputValidation(fieldValue, name, subname );
+    // update of state.data
+    if(error === null) {
 
-
-    if(result === 'ok') {
     	let data = Object.assign({},this.state.data);
-    	if(subname) {
 
-    		data[name][subname] = fieldValue;
-    	} else {
+    	if(subname) { data[name][subname] = fieldValue; } 
+      else { data[name] = fieldValue; }
 
-    		data[name] = fieldValue;
-    	}
-    	this.setState({ data: data }, function() {
+    	this.setState({ data: data });
 
-    	});
-
-    	result = null;
     }
 
-	let control = Object.assign({},this.state.control);
-	control[name] = result;
+    // validation of state.control
+  	let control = Object.assign({},this.state.control);
+  	control[name] = error;
 
-	this.setState({ control: control }, function() {
-	  /*console.log(this.state.control);
-	  console.log(this.state.data);*/
-	}); 
+  	this.setState({ control: control }); 
 
     
   }
@@ -281,7 +201,7 @@ console.log(this.state.data);*/
         <Form horizontal onSubmit={this._handleSubmit.bind(this)}>
 
           <FormBlock field="title" 
-                     value={this.state.control.title}>
+                     control={this.state.control.title}>
             <FormControl type="text"
                          name="title"
                          inputRef={ ref => this._title = ref } 
@@ -290,7 +210,7 @@ console.log(this.state.data);*/
           </FormBlock>
 
           <FormBlock field="description"
-                     value={this.state.control.description}>
+                     control={this.state.control.description}>
             <FormControl componentClass="textarea"
                          name="description" 
                          inputRef={ ref => this._description = ref } 
@@ -299,7 +219,7 @@ console.log(this.state.data);*/
           </FormBlock>
 
           <FormBlock field="city"
-                     value={this.state.control.city}>
+                     control={this.state.control.city}>
             <FormControl componentClass="select"
                          name="city"
                          inputRef={ ref => this._city = ref } 
@@ -310,7 +230,7 @@ console.log(this.state.data);*/
           </FormBlock>
 
           <FormBlock field="distance"
-                     value={this.state.control.distance}>
+                     control={this.state.control.distance}>
             <InputGroup>
               <input type="number" step="0" min="0" 
                      id="distance" name="distance" className="form-control" 
@@ -322,7 +242,7 @@ console.log(this.state.data);*/
           </FormBlock>          
 
           <FormBlock field="duration"
-                     value={this.state.control.duration}>
+                     control={this.state.control.duration}>
             <Row>
               <Col xs={5}>
                 <InputGroup>
